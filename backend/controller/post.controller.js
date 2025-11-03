@@ -16,10 +16,15 @@ res.send('done');
 
 }
 
-exports.allUserPosts= async(req, res, next)=>{
-   let user= await userModel
-   .findOne({_id:'6889be61da922f68d22f2f72'})
-   .populate('posts')
-   res.send(user);
-}
- 
+exports.allUserPosts = async (req, res, next) => {
+  try {
+    const posts = await postModel
+      .find()                     // ✅ fetch all posts
+      .populate('user');          // ✅ populate user field
+     console.log("these are posts ", posts);
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error("Error fetching posts:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};

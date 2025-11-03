@@ -18,5 +18,5 @@ router.get('/logout', authMiddleware.authUser, user.logout);
 router.get('/profile', authMiddleware.authUser, user.profile);
 router.get("/userposts", authMiddleware.authUser, user.userposts);
 router.get('/image/:id', user.getFile);
-
+router.get("/allusers", user.allUsers);
 module.exports = router;

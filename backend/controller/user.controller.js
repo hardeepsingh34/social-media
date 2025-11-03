@@ -151,5 +151,14 @@ exports.home = async(req,res)=> {
   res.render('home', {user, posts});
 }
 
-
+module.exports.allUsers = async (req, res) => {
+try{
+  const users = await userModel.find();
+      console.log("these are users" , users);
+    res.send(users);
+  } catch (err) {
+    console.error("Error fetching user posts:", err);
+    res.status(500).send("Server error");
+  }
+}
 

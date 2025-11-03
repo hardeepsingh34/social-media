@@ -8,20 +8,17 @@ const Feed = () => {
   const [posts, setPosts] = useState(initialPosts);
   const [heartAnimation, setHeartAnimation] = useState({});
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState({});
 
   // ✅ Fetch user posts when component mounts
  useEffect(() => {
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/user/userposts`, {
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/post/alluserposts`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      setUser(response.data);
-      setPosts(response.data?.posts);
-      console.log(user);  
+      setPosts(response.data);
       } catch (error) {
       console.error("❌ Error fetching posts:", error);
     }
@@ -80,11 +77,11 @@ console.log(posts);
                     post.user?.avatar ||
                     "https://cdn-icons-png.flaticon.com/512/149/149071.png"
                   }
-                  alt={user?.username || "User"}
+                  alt={post.user?.username || "User"}
                   className="w-14 h-14 rounded-full border-2 border-white border-opacity-50"
                 />
                 <h2 className="ml-4 text-xl font-semibold text-gray-800">
-                  {user?.username || "Anonymous"}
+                  {post.user?.username || "Anonymous"}
                 </h2>
               </div>
 
